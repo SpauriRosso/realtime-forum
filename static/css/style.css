@@ -3,3 +3,32 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.signup form {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.signup form label {
+  margin: 5px;
+}
+
+.signup form input,
+.signup form select {
+  border-radius: 2em;
+  padding: 2.5px;
+}
