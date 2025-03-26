@@ -1,8 +1,8 @@
-export async function toggleSignUp() {
-  const container = document.querySelector('.container');
-  container.innerHTML = `
-        <div class="signup">
-        <form id="signup">
+function getSignUpDiv() {
+  const form = document.createElement('div');
+  form.classList = 'signup';
+  form.innerHTML = `
+  <form id="signup">
           <label for="nickname">Nickname : <input type="text" name="nickname" id="nickname" /></label>
           <label for="age">Date of Birth : <input type="number" name="age" id="age" /></label>
           <label for="gender"
@@ -18,10 +18,17 @@ export async function toggleSignUp() {
           <label for="email">E-mail : <input type="email" name="email" id="email" /></label>
           <label for="password">Password : <input type="password" name="password" id="password" /></label>
           <button type="submit">Sign Up!</button>
-        </form>
-      </div>`;
+        </form>`;
+  return form;
+}
 
-  document.getElementById('signup').addEventListener('submit', async (e) => {
+export async function displaySignUp() {
+  const container = document.querySelector('.container');
+  container.innerHTML = '';
+  const formDiv = getSignUpDiv();
+  container.appendChild(formDiv);
+
+  formDiv.addEventListener('submit', async (e) => {
     e.preventDefault();
     const data = {
       nickname: document.getElementById('nickname').value,
