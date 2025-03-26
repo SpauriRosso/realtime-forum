@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func StaticMiddleware(next http.Handler) http.Handler {
+func StaticMiddleware(next http.Handler) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Si l'utilisateur accède à la racine `/`, servir `index.html`
 		if r.URL.Path == "/" {

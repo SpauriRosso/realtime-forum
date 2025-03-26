@@ -9,14 +9,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Response struct {
-	Code int
-	Msg  []string
-}
-
 func SignUp(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User
-	resp := Response{Code: 200}
+	resp := models.Response{Code: 200}
+
 	err := json.NewDecoder(r.Body).Decode(&newUser)
 	if err != nil {
 		resp.Code = 400
@@ -36,9 +32,10 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if resp.Code == 200 {
-		resp.Msg = []string{"user created"}
+		resp.Msg = []string{"User Created!"}
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(map[string]any{"code": resp.Code, "msg": resp.Msg})
+	w.WriteHeader(resp.Code)
+	json.NewEncoder(w).Encode(resp)
 }

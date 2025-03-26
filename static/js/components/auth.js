@@ -32,7 +32,7 @@ export async function toggleSignUp() {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
     };
-    const res = await fetch('/signup', {
+    const res = await fetch('/api/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

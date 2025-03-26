@@ -1,9 +1,8 @@
 import { toggleSignUp } from './components/auth.js';
 import { toggleButton } from './components/button.js';
 
-function home() {
-  const container = document.createElement('div');
-  container.classList = 'container';
+function init() {
+  const container = document.querySelector('.container');
 
   const header = document.createElement('header');
   header.innerHTML = `<h2>Real-Time-Forum</h2>`;
@@ -15,5 +14,5 @@ function home() {
 }
 
 window.onload = () => {
-  document.body.appendChild(home());
+  init();
 };
