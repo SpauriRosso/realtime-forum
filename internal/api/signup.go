@@ -11,27 +11,32 @@ import (
 
 func SignUp(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User
-	resp := models.Response{Code: 200}
+	resp := models.Response{Code: http.StatusOK}
 
 	err := json.NewDecoder(r.Body).Decode(&newUser)
 	if err != nil {
-		resp.Code = 400
+		resp.Code = http.StatusBadRequest
 		resp.Msg = append(resp.Msg, err.Error())
 	}
 
-	password, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), bcrypt.DefaultCost)
-	if err != nil {
-		resp.Code = 500
-		resp.Msg = append(resp.Msg, err.Error())
+	if newUser.Nickname != "" && newUser.Age != "" && newUser.Gender != "" && newUser.FirstName != "" && newUser.LastName != "" && newUser.Email != "" && newUser.Password != "" {
+		password, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), bcrypt.DefaultCost)
+		if err != nil {
+			resp.Code = http.StatusInternalServerError
+			resp.Msg = append(resp.Msg, err.Error())
+		}
+
+		code, err := db.CreateUser(newUser.Nickname, newUser.Age, newUser.Gender, newUser.FirstName, newUser.LastName, newUser.Email, string(password))
+		if err != nil {
+			resp.Code = code
+			resp.Msg = append(resp.Msg, err.Error())
+		}
+	} else {
+		resp.Code = http.StatusBadRequest
+		resp.Msg = append(resp.Msg, "All fields are required!")
 	}
 
-	code, err := db.CreateUser(newUser.Nickname, newUser.Age, newUser.Gender, newUser.FirstName, newUser.LastName, newUser.Email, string(password))
-	if err != nil {
-		resp.Code = code
-		resp.Msg = append(resp.Msg, err.Error())
-	}
-
-	if resp.Code == 200 {
+	if resp.Code == http.StatusOK {
 		resp.Msg = []string{"User Created!"}
 	}
 
