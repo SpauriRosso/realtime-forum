@@ -16,7 +16,7 @@ func StaticMiddleware(next http.Handler) http.HandlerFunc {
 		// Liste des extensions de fichiers autorisées
 		allowedExt := map[string]bool{
 			".jpg": true, ".jpeg": true, ".png": true, ".gif": true,
-			".css": true, ".js": true,
+			".css": true, ".js": true, ".ico": true,
 		}
 		// Vérifiez l'extension du fichier demandé
 		ext := strings.ToLower(filepath.Ext(r.URL.Path))

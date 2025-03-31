@@ -10,23 +10,23 @@ import (
 )
 
 func SignUp(w http.ResponseWriter, r *http.Request) {
-	var newUser models.User
+	var input models.User
 	resp := models.Response{Code: http.StatusOK}
 
-	err := json.NewDecoder(r.Body).Decode(&newUser)
+	err := json.NewDecoder(r.Body).Decode(&input)
 	if err != nil {
 		resp.Code = http.StatusBadRequest
 		resp.Msg = append(resp.Msg, err.Error())
 	}
 
-	if newUser.Nickname != "" && newUser.Age != "" && newUser.Gender != "" && newUser.FirstName != "" && newUser.LastName != "" && newUser.Email != "" && newUser.Password != "" {
-		password, err := bcrypt.GenerateFromPassword([]byte(newUser.Password), bcrypt.DefaultCost)
+	if input.Nickname != "" && input.Age != "" && input.Gender != "" && input.FirstName != "" && input.LastName != "" && input.Email != "" && input.Password != "" {
+		password, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 		if err != nil {
 			resp.Code = http.StatusInternalServerError
 			resp.Msg = append(resp.Msg, err.Error())
 		}
 
-		code, err := db.CreateUser(newUser.Nickname, newUser.Age, newUser.Gender, newUser.FirstName, newUser.LastName, newUser.Email, string(password))
+		code, err := db.CreateUser(input.Nickname, input.Age, input.Gender, input.FirstName, input.LastName, input.Email, string(password))
 		if err != nil {
 			resp.Code = code
 			resp.Msg = append(resp.Msg, err.Error())

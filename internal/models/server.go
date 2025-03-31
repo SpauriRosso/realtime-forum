@@ -28,8 +28,9 @@ type Server struct {
 }
 
 type Response struct {
-	Code int
-	Msg  []string
+	Code int            `json:"code"`
+	Msg  []string       `json:"msg"`
+	Data map[string]any `json:"data"`
 }
 
 // Use adds a middleware to the server.
