@@ -15,7 +15,7 @@ func GetDB() *sql.DB {
 
 	// SQL statement to create the users table
 	tables := `CREATE TABLE IF NOT EXISTS users (
-			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			uuid TEXT PRIMARY KEY,
 			nickname TEXT UNIQUE,
 			age TEXT NOT NULL,
 			gender TEXT NOT NULL,
@@ -23,6 +23,10 @@ func GetDB() *sql.DB {
 			lastName TEXT NOT NULL,
 			email TEXT UNIQUE NOT NULL,
 			password TEXT NOT NULL,
+			created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+		); CREATE TABLE IF NOT EXISTS sessions (
+			uuid TEXT PRIMARY KEY,
+			user TEXT UNIQUE,
 			created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 		)`
 

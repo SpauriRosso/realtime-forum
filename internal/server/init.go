@@ -18,6 +18,7 @@ func InitServer() {
 	// all api handlers
 	server.Handle("/api/signup", api.SignUp)
 	server.Handle("/api/signin", api.SignIn)
+	server.Handle("/api/session", api.Session)
 
 	// middlewares
 	server.Use(middlewares.ApiMiddleware)

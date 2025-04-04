@@ -1,3 +1,5 @@
+import { container } from '../main.js';
+
 const signupForm = `
 <div class="auth-form">
   <form id="signup-form">
@@ -20,7 +22,7 @@ const signupForm = `
 </div>
 `;
 
-export async function displaySignUp(container) {
+export async function displaySignUp() {
   container.innerHTML = signupForm;
 
   document.querySelector('#signup-form').addEventListener('submit', async (e) => {
@@ -41,7 +43,13 @@ export async function displaySignUp(container) {
     });
 
     const result = await res.json();
-    // document.getElementById('message').innerText = result.message;
-    console.log(result); // tmp
+    if (result.code !== 200) {
+      // to do
+      // display a error msg
+      return;
+    }
+
+    localStorage.setItem('session_uuid', result.data.session_uuid);
+    window.location.href = '/';
   });
 }

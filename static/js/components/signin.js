@@ -1,3 +1,5 @@
+import { container } from '../main.js';
+
 const signinForm = `
 <div class="auth-form">
   <form id="signin-form">
@@ -8,7 +10,7 @@ const signinForm = `
 </div>
 `;
 
-export async function displaySignIn(container) {
+export async function displaySignIn() {
   container.innerHTML = signinForm;
 
   document.querySelector('#signin-form').addEventListener('submit', async (e) => {
@@ -24,7 +26,14 @@ export async function displaySignIn(container) {
     });
 
     const result = await res.json();
-    // document.getElementById('message').innerText = result.message;
-    console.log(result); // tmp
+    console.log(result);
+    if (result.code !== 200) {
+      // to do
+      // display a error msg
+      return;
+    }
+
+    localStorage.setItem('session_uuid', result.data.session_uuid);
+    window.location.href = '/';
   });
 }

@@ -1,8 +1,11 @@
-import { displaySignIn } from './components/signin.js';
+import { User } from './models/user.js';
 import { displaySignUp } from './components/signup.js';
+import { displaySignIn } from './components/signin.js';
 
-const container = document.querySelector('#container');
+export const container = document.querySelector('#container');
+export let user = await User.createInstance();
 
-window.onload = () => {
-  displaySignIn(container);
+window.onload = async () => {
+  // await displaySignUp();
+  user.isConnected ? console.log('Connected') : await displaySignIn();
 };
