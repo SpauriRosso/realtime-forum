@@ -1,11 +1,12 @@
 import { User } from './models/user.js';
-import { displaySignUp } from './components/signup.js';
-import { displaySignIn } from './components/signin.js';
+import { AppElement } from './elements/app.js';
+import { SignInElement } from './elements/signin.js';
+import { SignUpElement } from './elements/signup.js';
 
-export const container = document.querySelector('#container');
 export let user = await User.createInstance();
 
-window.onload = async () => {
-  // await displaySignUp();
-  user.isConnected ? console.log('Connected') : await displaySignIn();
-};
+document.body.appendChild(document.createElement('c-app'));
+
+customElements.define('c-app', AppElement);
+customElements.define('c-signup', SignUpElement);
+customElements.define('c-signin', SignInElement);
