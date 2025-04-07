@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func StaticMiddleware(next http.Handler) http.Handler {
+func StaticMiddleware(next http.Handler) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Si l'utilisateur accède à la racine `/`, servir `index.html`
 		if r.URL.Path == "/" {
@@ -16,7 +16,7 @@ func StaticMiddleware(next http.Handler) http.Handler {
 		// Liste des extensions de fichiers autorisées
 		allowedExt := map[string]bool{
 			".jpg": true, ".jpeg": true, ".png": true, ".gif": true,
-			".css": true, ".js": true,
+			".css": true, ".js": true, ".ico": true,
 		}
 		// Vérifiez l'extension du fichier demandé
 		ext := strings.ToLower(filepath.Ext(r.URL.Path))
