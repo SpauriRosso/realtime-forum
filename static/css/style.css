@@ -1,7 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  background-image: url("https://cdn.discordapp.com/attachments/1286732039244091535/1359320287656546304/image.png?ex=67f70d2b&is=67f5bbab&hm=1aa9a164137bbf9e68683a336bbd54c486c861892abce85d3801488729334528&");
-  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
 }
@@ -9,6 +11,10 @@ body {
 body {
   width: 100vw;
   height: 100vh;
+  background-image: url('https://cdn.discordapp.com/attachments/1286732039244091535/1359458559598919782/noisy-gradients.png?ex=67f78df2&is=67f63c72&hm=032878b9af0be5fea6dbf5f4f0f43d577e0297eb289543432ca7557250e534b7&');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 10px;
 }
 
 #container {
