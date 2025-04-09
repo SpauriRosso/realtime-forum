@@ -1,5 +1,7 @@
 html,
 body {
+  background-image: url("https://cdn.discordapp.com/attachments/1286732039244091535/1359320287656546304/image.png?ex=67f70d2b&is=67f5bbab&hm=1aa9a164137bbf9e68683a336bbd54c486c861892abce85d3801488729334528&");
+  background-repeat: no-repeat;
   margin: 0;
   padding: 0;
 }
