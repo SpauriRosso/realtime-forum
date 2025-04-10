@@ -12,7 +12,6 @@ export class NavBarElement extends HTMLElement {
     this.style.boxShadow = "0px 4px 4px rgba(0, 0, 0, 0.53)";
     this.style.backdropFilter = "blur(11px)";
     this.style.height = "calc(2rem + 20px)";
-    this.style.position = "absolute"; // tmp
     this.style.bottom = "50px"; // tmp
     this.style.width = "1044px"; // tmp
 
