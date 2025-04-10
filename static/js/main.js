@@ -5,6 +5,7 @@ import { SignUpElement } from "./elements/signup.js";
 import { NavBarElement } from "./elements/navbar.js";
 import { NavBarButtonElement } from "./elements/navbar-button.js";
 import { HeaderElement } from "./elements/header.js";
+import { CategoryButton } from "./elements/category-btn.js";
 
 export let user = await User.createInstance();
 
@@ -16,3 +17,4 @@ customElements.define("c-signin", SignInElement);
 customElements.define("c-navbar", NavBarElement);
 customElements.define("c-navbutton", NavBarButtonElement);
 customElements.define("c-header", HeaderElement);
+customElements.define("c-categories", CategoryButton);
