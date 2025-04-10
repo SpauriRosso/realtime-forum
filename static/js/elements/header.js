@@ -12,6 +12,7 @@ export class HeaderElement extends HTMLElement {
       boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.53)",
       backdropFilter: "blur(11px)",
       height: "40px",
+      userSelect: "none",
       position: "fixed",
       top: "20px",
       left: "20px",
