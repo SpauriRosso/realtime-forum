@@ -4,9 +4,12 @@ export class CategoriesElement extends HTMLElement {
 
     Object.assign(this.style, {
       display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "28px",
       width: "1044px",
-      height: "50px",
-      backgroundColor: "red",
+      margin: "50px auto 0 auto",
+      position: "relative",
     });
 
     const labels = [
@@ -20,7 +23,6 @@ export class CategoriesElement extends HTMLElement {
 
     labels.forEach((text) => {
       const button = document.createElement("c-category");
-
       button.textContent = text;
       this.appendChild(button);
     });

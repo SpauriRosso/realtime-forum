@@ -7,6 +7,7 @@ export class AppElement extends HTMLElement {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
+      overflow: "hidden",
     });
 
     // header
@@ -16,8 +17,8 @@ export class AppElement extends HTMLElement {
     const categories = document.createElement("c-categories");
     this.appendChild(categories);
     // posts
-    // const posts = document.createElement("c-postbox");
-    // this.appendChild(posts);
+    const posts = document.createElement("c-posts");
+    this.appendChild(posts);
     // navbar
     const navbar = document.createElement("c-navbar");
     this.appendChild(navbar);
