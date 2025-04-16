@@ -34,11 +34,6 @@ export class CreatePostElement extends HTMLElement {
     button.textContent = 'Send!';
     form.appendChild(button);
     this.appendChild(form);
-
-    Object.assign(form.style, {
-      display: 'flex',
-      flexDirection: 'column',
-    });
   }
 
   connectedCallback() {
