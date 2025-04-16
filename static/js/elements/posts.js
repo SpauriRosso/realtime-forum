@@ -13,7 +13,7 @@ export class PostsElement extends HTMLElement {
     });
 
     for (let i = 0; i < 24; i++) {
-      console.log(i);
+      // console.log(i);
       const post = document.createElement("c-postbox");
       this.appendChild(post);
     }
