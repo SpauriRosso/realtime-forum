@@ -9,6 +9,7 @@ import { CategoryButton } from "./elements/category.js";
 import { PostsElement } from "./elements/posts.js";
 import { PostBox } from "./elements/postbox.js";
 import { CategoriesElement } from "./elements/categories.js";
+import { CreatePostElement } from "./elements/create-post.js";
 
 export let user = await User.createInstance();
 
@@ -29,3 +30,5 @@ customElements.define("c-category", CategoryButton);
 
 customElements.define("c-posts", PostsElement);
 customElements.define("c-postbox", PostBox);
+
+customElements.define('c-createpost', CreatePostElement);

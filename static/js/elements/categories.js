@@ -1,3 +1,5 @@
+import { categories } from "../models/category.js";
+
 export class CategoriesElement extends HTMLElement {
   constructor() {
     super();
@@ -12,16 +14,7 @@ export class CategoriesElement extends HTMLElement {
       position: "relative",
     });
 
-    const labels = [
-      "Excited",
-      "Happy",
-      "Neutral",
-      "Nostalgic",
-      "Sad",
-      "Depressed",
-    ];
-
-    labels.forEach((text) => {
+    categories.forEach((text) => {
       const button = document.createElement("c-category");
       button.textContent = text;
       this.appendChild(button);

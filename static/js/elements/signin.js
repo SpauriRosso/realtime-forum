@@ -2,13 +2,11 @@ export class SignInElement extends HTMLElement {
   constructor() {
     super();
     this.innerHTML = `
-<div class="auth-form">
-  <form id="signin-form">
-    <label for="login">Login : <input type="text" name="login" id="login" /></label>
-    <label for="password">Password : <input type="password" name="password" id="password" /></label>
-    <button type="submit">Sign In!</button>
-  </form>
-</div>
+<form id="signin-form">
+  <label for="login">Login : <input type="text" name="login" id="login" /></label>
+  <label for="password">Password : <input type="password" name="password" id="password" /></label>
+  <button type="submit">Sign In!</button>
+</form>
 `;
     this.querySelector('#signin-form').addEventListener('submit', async (e) => {
       e.preventDefault();

@@ -7,4 +7,4 @@ require (
 	golang.org/x/crypto v0.36.0
 )
 
-require github.com/gofrs/uuid v4.4.0+incompatible
+require github.com/google/uuid v1.6.0
