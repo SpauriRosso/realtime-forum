@@ -43,7 +43,7 @@ func CreatePost(userUUID, parentUUID, content, category string) (int, error) {
 	return http.StatusOK, nil
 }
 
-func GetPosts() ([]models.Post, error) {
+func GetPosts(category string) ([]models.Post, error) {
 	db := GetDB()
 	defer db.Close()
 
@@ -51,10 +51,23 @@ func GetPosts() ([]models.Post, error) {
 	SELECT p.*, u.nickname, u.age, u.gender, u.firstName, u.lastName, u.email
 	FROM posts p
 	JOIN users u
-	ON p.user = u.uuid
-	ORDER BY p.created_at DESC;`
+	ON p.user = u.uuid`
 
-	rows, err := db.Query(query)
+	var rows *sql.Rows
+	var err error
+
+	if category != "" {
+		query += ` WHERE p.category = ?`
+	}
+
+	query += ` ORDER BY p.created_at DESC;`
+
+	if category != "" {
+		rows, err = db.Query(query, category)
+	} else {
+		rows, err = db.Query(query)
+	}
+
 	if err != nil {
 		log.Printf("Error executing query: %v", err)
 		return nil, err

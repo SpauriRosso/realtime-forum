@@ -1,6 +1,9 @@
-export class PostBox extends HTMLElement {
+export class PostElement extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
     this.render();
   }
 

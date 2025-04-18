@@ -1,10 +1,10 @@
-export async function getPosts() {
-  const res = await fetch('/api/posts', { method: 'POST' });
+export async function getPosts(category) {
+  const res = await fetch(!category ? '/api/posts' : `/api/posts?category=${category}`, { method: 'POST' });
   const result = await res.json();
   if (result.code !== 200) {
     // to do
     // display a error msg
-    return null;
+    return;
   }
   return result.data.posts;
 }

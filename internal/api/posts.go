@@ -10,7 +10,9 @@ import (
 func Posts(w http.ResponseWriter, r *http.Request) {
 	resp := models.Response{Code: http.StatusOK, Data: make(map[string]any)}
 
-	posts, err := db.GetPosts()
+	category := r.URL.Query().Get("category")
+
+	posts, err := db.GetPosts(category)
 	if err != nil {
 		resp.Code = http.StatusNotFound
 		resp.Msg = err.Error()

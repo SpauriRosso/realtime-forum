@@ -1,4 +1,4 @@
-import { user } from '../main.js';
+import { state } from '../main.js';
 import { categories } from '../models/category.js';
 
 export class CreatePostElement extends HTMLElement {
@@ -18,12 +18,10 @@ export class CreatePostElement extends HTMLElement {
     const select_label = document.createElement('label');
     select_label.textContent = 'Category: ';
     const select = document.createElement('select');
-    this.validOptions = new Set();
     for (let category of categories) {
       const option = document.createElement('option');
       option.textContent = category;
       option.value = category;
-      this.validOptions.add(option.value);
       select.appendChild(option);
     }
     select_label.appendChild(select);
@@ -42,9 +40,9 @@ export class CreatePostElement extends HTMLElement {
       const data = {
         content: this.querySelector('textarea').value,
         category: this.querySelector('select').value,
-        user: user,
+        user: state.user,
       };
-      if (!this.validOptions.has(data.category)) {
+      if (!categories.includes(data.category)) {
         // TODO: handle no valid option (client injection)
         return;
       }

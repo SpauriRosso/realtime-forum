@@ -1,4 +1,4 @@
-import { posts } from '../main.js';
+import { state } from '../main.js';
 
 export class PostsElement extends HTMLElement {
   constructor() {
@@ -7,6 +7,9 @@ export class PostsElement extends HTMLElement {
   }
 
   render() {
+    // Reset le contenu à chaque appel de render pour ne pas ajouter plusieurs fois les mêmes éléments
+    this.innerHTML = '';
+
     Object.assign(this.style, {
       display: 'flex',
       flexWrap: 'wrap',
@@ -16,10 +19,12 @@ export class PostsElement extends HTMLElement {
       marginTop: '20px',
       paddingBottom: '100px',
     });
-    for (let post of posts) {
-      const box = document.createElement('c-postbox');
-      box.Content = post.content;
-      this.appendChild(box);
+
+    // Créer un élément <c-post> pour chaque post
+    for (let post of state.posts) {
+      const box = document.createElement('c-post'); // Créer l'élément <c-post>
+      box.Content = post.content; // Assigner le contenu du post
+      this.appendChild(box); // Ajouter <c-post> dans <c-posts>
     }
   }
 }
