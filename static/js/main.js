@@ -10,8 +10,10 @@ import { PostsElement } from "./elements/posts.js";
 import { PostBox } from "./elements/postbox.js";
 import { CategoriesElement } from "./elements/categories.js";
 import { CreatePostElement } from "./elements/create-post.js";
+import { getPosts } from "./utils/posts.js";
 
 export let user = await User.createInstance();
+export let posts = await getPosts()
 
 document.body.appendChild(document.createElement("c-app"));
 

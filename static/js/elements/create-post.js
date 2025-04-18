@@ -39,7 +39,6 @@ export class CreatePostElement extends HTMLElement {
   connectedCallback() {
     this.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      console.log(this.validOptions);
       const data = {
         content: this.querySelector('textarea').value,
         category: this.querySelector('select').value,

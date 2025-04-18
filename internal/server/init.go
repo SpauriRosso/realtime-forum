@@ -20,6 +20,7 @@ func InitServer() {
 	server.Handle("/api/signin", api.SignIn)
 	server.Handle("/api/session", api.Session)
 	server.Handle("/api/create-post", api.CreatePost)
+	server.Handle("/api/posts", api.Posts)
 
 	// middlewares
 	server.Use(middlewares.ApiMiddleware)
