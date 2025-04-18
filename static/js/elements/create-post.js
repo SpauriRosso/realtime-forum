@@ -4,7 +4,34 @@ import { categories } from '../models/category.js';
 export class CreatePostElement extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
     this.render();
+    this.querySelector('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {
+        content: this.querySelector('textarea').value,
+        category: this.querySelector('select').value,
+        user: state.user,
+      };
+      if (!categories.includes(data.category)) {
+        // TODO: handle no valid option (client injection)
+        return;
+      }
+      const res = await fetch('/api/create-post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      if (result.code !== 200) {
+        // TODO: handle error
+        // display a error msg
+        return;
+      }
+    });
   }
 
   render() {
@@ -32,32 +59,5 @@ export class CreatePostElement extends HTMLElement {
     button.textContent = 'Send!';
     form.appendChild(button);
     this.appendChild(form);
-  }
-
-  connectedCallback() {
-    this.querySelector('form').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const data = {
-        content: this.querySelector('textarea').value,
-        category: this.querySelector('select').value,
-        user: state.user,
-      };
-      if (!categories.includes(data.category)) {
-        // TODO: handle no valid option (client injection)
-        return;
-      }
-      const res = await fetch('/api/create-post', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      });
-
-      const result = await res.json();
-      if (result.code !== 200) {
-        // TODO: handle error
-        // display a error msg
-        return;
-      }
-    });
   }
 }

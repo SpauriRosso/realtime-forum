@@ -3,6 +3,9 @@ import { state } from '../main.js';
 export class PostsElement extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
     this.render();
   }
 
@@ -20,11 +23,11 @@ export class PostsElement extends HTMLElement {
       paddingBottom: '100px',
     });
 
-    // Créer un élément <c-post> pour chaque post
+    if (!Array.isArray(state.posts)) return;
     for (let post of state.posts) {
-      const box = document.createElement('c-post'); // Créer l'élément <c-post>
-      box.Content = post.content; // Assigner le contenu du post
-      this.appendChild(box); // Ajouter <c-post> dans <c-posts>
+      const box = document.createElement('c-post');
+      box.Content = post.content;
+      this.appendChild(box);
     }
   }
 }
