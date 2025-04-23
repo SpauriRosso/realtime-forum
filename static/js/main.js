@@ -11,6 +11,7 @@ import { PostElement } from './elements/post.js';
 import { CategoriesElement } from './elements/categories.js';
 import { CreatePostElement } from './elements/create-post.js';
 import { getPosts } from './utils/posts.js';
+import { ChatElement } from './elements/chat.js';
 
 export const state = {
   user: await User.createInstance(),
@@ -30,3 +31,4 @@ customElements.define('c-navbutton', NavBarButtonElement);
 customElements.define('c-signup', SignUpElement);
 customElements.define('c-signin', SignInElement);
 customElements.define('c-createpost', CreatePostElement);
+customElements.define('c-chat', ChatElement);
