@@ -1,14 +1,7 @@
 export class AppElement extends HTMLElement {
   constructor() {
     super();
-
-    Object.assign(this.style, {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column",
-      overflow: "hidden",
-    });
+    this.classList = 'flex w-screen h-screen bg-[url(../assets/background.webp)] bg-cover';
 
     // header
     const header = document.createElement("c-header");
