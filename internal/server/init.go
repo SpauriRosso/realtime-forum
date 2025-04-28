@@ -5,8 +5,17 @@ import (
 	"net/http"
 	"real-time-forum/internal/api"
 	"real-time-forum/internal/middlewares"
+	"real-time-forum/internal/models"
+	"real-time-forum/internal/ws"
 	"time"
 )
+
+var hub = &models.Hub{
+	Clients:    make(map[string]*models.Client),
+	Register:   make(chan *models.Client),
+	Unregister: make(chan *models.Client),
+	Broadcast:  make(chan models.Message),
+}
 
 func InitServer() {
 	// Create the HTTP server
@@ -22,10 +31,12 @@ func InitServer() {
 	server.Handle("/api/create-post", api.CreatePost)
 	server.Handle("/api/posts", api.Posts)
 	server.Handle("/api/users", api.Users)
+	server.Handle("/ws", ws.WebSocketHandler(hub))
 
 	// middlewares
 	server.Use(middlewares.ApiMiddleware)
 
+	go hub.Run()
 	if err := server.Start(); err != nil {
 		fmt.Printf("Error starting server: %v\n", err)
 	}

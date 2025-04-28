@@ -14,7 +14,7 @@ import { getPosts } from './utils/posts.js';
 import { ChatElement } from './elements/chat.js';
 
 export const state = {
-  user: await User.createInstance(),
+  user: new User(localStorage.getItem('session_uuid')),
   posts: await getPosts(),
 };
 
