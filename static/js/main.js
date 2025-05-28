@@ -1,17 +1,18 @@
-import { User } from './models/user.js';
 import { AppElement } from './elements/app.js';
+import { CategoriesElement } from './elements/categories.js';
+import { CategoryButton } from './elements/category.js';
+import { ChatElement } from './elements/chat.js';
+import { CreatePostElement } from './elements/create-post.js';
+import { HeaderElement } from './elements/header.js';
+import { NavBarButtonElement } from './elements/navbar-button.js';
+import { NavBarElement } from './elements/navbar.js';
+import { PostElement } from './elements/post.js';
+import { PostsElement } from './elements/posts.js';
 import { SignInElement } from './elements/signin.js';
 import { SignUpElement } from './elements/signup.js';
-import { NavBarElement } from './elements/navbar.js';
-import { NavBarButtonElement } from './elements/navbar-button.js';
-import { HeaderElement } from './elements/header.js';
-import { CategoryButton } from './elements/category.js';
-import { PostsElement } from './elements/posts.js';
-import { PostElement } from './elements/post.js';
-import { CategoriesElement } from './elements/categories.js';
-import { CreatePostElement } from './elements/create-post.js';
+import { SpacingElement } from './elements/spacing.js';
+import { User } from './models/user.js';
 import { getPosts } from './utils/posts.js';
-import { ChatElement } from './elements/chat.js';
 
 export const state = {
   user: new User(localStorage.getItem('session_uuid')),
@@ -32,3 +33,4 @@ customElements.define('c-signup', SignUpElement);
 customElements.define('c-signin', SignInElement);
 customElements.define('c-createpost', CreatePostElement);
 customElements.define('c-chat', ChatElement);
+customElements.define('c-spacing', SpacingElement);

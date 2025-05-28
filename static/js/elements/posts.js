@@ -10,24 +10,24 @@ export class PostsElement extends HTMLElement {
   }
 
   render() {
+    // Check if Posts are ok
+    if (!Array.isArray(state.posts)) {
+      alert('no post');
+      return;
+    }
     // Reset le contenu à chaque appel de render pour ne pas ajouter plusieurs fois les mêmes éléments
     this.innerHTML = '';
-
-    Object.assign(this.style, {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'center',
-      gap: '20px',
-      width: '1200px',
-      marginTop: '20px',
-      paddingBottom: '100px',
-    });
-
-    if (!Array.isArray(state.posts)) return;
+    // create section
+    const section = document.createElement('section');
+    section.classList = 'max-w-5xl px-4 m-auto place-items-center grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5';
+    // add categories elements
     for (let post of state.posts) {
       const box = document.createElement('c-post');
       box.Content = post.content;
-      this.appendChild(box);
+      section.appendChild(box);
     }
+    this.appendChild(section);
+    const spacing = document.createElement('c-spacing');
+    this.appendChild(spacing);
   }
 }
