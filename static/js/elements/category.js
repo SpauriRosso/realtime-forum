@@ -1,6 +1,6 @@
-import { categories } from '../models/category.js';
 import { state } from '../main.js';
-import { getPosts } from '../utils/posts.js';
+import { categories } from '../models/category.js';
+import { getPosts } from '../services/post.js';
 
 export class CategoryButton extends HTMLElement {
   constructor() {

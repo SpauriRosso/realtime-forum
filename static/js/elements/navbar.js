@@ -19,12 +19,12 @@ export class NavBarElement extends HTMLElement {
     this.appendChild(profil);
 
     const usersBtn = document.createElement('c-navbutton');
-    usersBtn.onClick = () => displayConnectedUsers();
+    usersBtn.onClick = () => this.toggleChat();
     usersBtn.img = '../../assets/navbar-users.webp';
     this.appendChild(usersBtn);
 
     const addPostBtn = document.createElement('c-navbutton');
-    addPostBtn.onClick = () => displayAddPost();
+    addPostBtn.onClick = () => this.toggleCreatePost();
     addPostBtn.img = '../../assets/addPostBtn.webp';
     this.appendChild(addPostBtn);
 
@@ -35,13 +35,41 @@ export class NavBarElement extends HTMLElement {
     this.appendChild(test);
 
     const notifsBtn = document.createElement('c-navbutton');
-    notifsBtn.onClick = () => displayNotifs();
+    notifsBtn.onClick = () => displayNotifs(); // TODO
     notifsBtn.img = '../../assets/navbar-bell.webp';
     this.appendChild(notifsBtn);
 
     const loginBtn = document.createElement('c-navbutton');
-    loginBtn.onClick = () => (user.isConnected ? user.logout() : displaySignup());
+    loginBtn.onClick = () => (user.isConnected ? user.logout() : this.displaySignup()); // TODO
     loginBtn.img = '../../assets/navbar-connect.webp';
     this.appendChild(loginBtn);
+  }
+
+  toggleChat() {
+    // checks if a modal is already open
+    const existingModal = document.querySelector('c-modal');
+    if (existingModal) {
+      existingModal.remove();
+      if (existingModal.firstElementChild.tagName.toLowerCase() === 'c-chat') return;
+    }
+    // create modal and chat
+    const modal = document.createElement('c-modal');
+    const chat = document.createElement('c-chat');
+    modal.appendChild(chat);
+    document.querySelector('main').appendChild(modal);
+  }
+
+  toggleCreatePost() {
+    // checks if a modal is already open
+    const existingModal = document.querySelector('c-modal');
+    if (existingModal) {
+      existingModal.remove();
+      if (existingModal.firstElementChild.tagName.toLowerCase() === 'c-createpost') return;
+    }
+    // create modal and chat
+    const modal = document.createElement('c-modal');
+    const chat = document.createElement('c-createpost');
+    modal.appendChild(chat);
+    document.querySelector('main').appendChild(modal);
   }
 }
