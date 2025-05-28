@@ -1,6 +1,9 @@
-package models
+package ws
 
 import (
+	"net/http"
+	"real-time-forum/internal/db"
+
 	"github.com/gorilla/websocket"
 )
 
@@ -32,6 +35,13 @@ func (c *Client) Read(hub *Hub) {
 
 		// Set l'expéditeur du message
 		msg.From = c.UserUUID
+
+		// 1. Insertion en base
+		code, err := db.CreateMsg(msg.From, msg.To, msg.Content, msg.Time)
+		if err != nil || code != http.StatusOK {
+			// Log ou gérer l'erreur, ne pas broadcast si insertion fail
+			continue
+		}
 		hub.Broadcast <- msg
 	}
 }
@@ -69,6 +79,7 @@ func (h *Hub) Run() {
 			h.Clients[client.UserUUID] = client
 		case client := <-h.Unregister:
 			delete(h.Clients, client.UserUUID)
+			close(client.Send)
 		case msg := <-h.Broadcast:
 			if dest, ok := h.Clients[msg.To]; ok {
 				dest.Send <- msg

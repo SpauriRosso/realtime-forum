@@ -38,6 +38,14 @@ func GetDB() *sql.DB {
 			created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 			FOREIGN KEY(user) REFERENCES users(uuid),
 			FOREIGN KEY(parent) REFERENCES posts(uuid)
+		); CREATE TABLE IF NOT EXISTS chat (
+			uuid TEXT PRIMARY KEY,
+			"from" TEXT NOT NULL,
+			"to" TEXT NOT NULL,
+			content TEXT,
+			time INTEGER NOT NULL,
+			FOREIGN KEY("from") REFERENCES users(uuid),
+			FOREIGN KEY("to") REFERENCES users(uuid)
 		)`
 
 	// Start a transaction

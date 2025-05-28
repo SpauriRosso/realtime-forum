@@ -81,10 +81,10 @@ export class ChatElement extends HTMLElement {
           const msg = JSON.parse(e.data);
           if (msg.from !== this.selectedUserLi.dataset.uuid) return;
 
-          const msgDiv = document.createElement('div');
-          msgDiv.className = 'w-fit p-2 bg-blue-400 rounded-xl';
-          msgDiv.textContent = msg.content;
-          msgsDiv.appendChild(msgDiv);
+          const msgElement = document.createElement('c-msg');
+          msgElement.content = msg.content;
+          msgElement.isSender = false;
+          msgsDiv.appendChild(msgElement);
         };
 
         input.addEventListener('keydown', (e) => {
@@ -94,10 +94,9 @@ export class ChatElement extends HTMLElement {
             state.user.sendMessage(targetUUID, content);
             input.value = '';
 
-            const msgDiv = document.createElement('div');
-            msgDiv.className = 'w-fit p-2 bg-red-400 rounded-xl self-end';
-            msgDiv.textContent = content;
-            msgsDiv.appendChild(msgDiv);
+            const msgElement = document.createElement('c-msg');
+            msgElement.content = content;
+            msgsDiv.appendChild(msgElement);
           }
         });
       });

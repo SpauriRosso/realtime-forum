@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"real-time-forum/internal/db"
-	"real-time-forum/internal/models"
 
 	"github.com/gorilla/websocket"
 )
@@ -20,7 +19,7 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-func WebSocketHandler(hub *models.Hub) http.HandlerFunc {
+func WebSocketHandler(hub *Hub) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
@@ -42,9 +41,9 @@ func WebSocketHandler(hub *models.Hub) http.HandlerFunc {
 			return
 		}
 
-		client := &models.Client{
+		client := &Client{
 			Conn:     conn,
-			Send:     make(chan models.Message),
+			Send:     make(chan Message),
 			UserUUID: user.UUID,
 		}
 
