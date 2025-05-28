@@ -1,11 +1,11 @@
 import { AppElement } from './elements/app.js';
 import { CategoriesElement } from './elements/categories.js';
 import { CategoryButton } from './elements/category.js';
-import { ChatElement } from './elements/chat.js';
+import { ChatElement } from './elements/chat/chat.js';
+import { MsgElement } from './elements/chat/msg.js';
 import { CreatePostElement } from './elements/create-post.js';
 import { HeaderElement } from './elements/header.js';
 import { ModalElement } from './elements/modal.js';
-import { MsgElement } from './elements/msg.js';
 import { NavBarButtonElement } from './elements/navbar-button.js';
 import { NavBarElement } from './elements/navbar.js';
 import { PostElement } from './elements/post.js';
@@ -34,7 +34,9 @@ customElements.define('c-navbutton', NavBarButtonElement);
 customElements.define('c-signup', SignUpElement);
 customElements.define('c-signin', SignInElement);
 customElements.define('c-createpost', CreatePostElement);
+// chat elements
 customElements.define('c-chat', ChatElement);
+customElements.define('c-msg', MsgElement);
+//
 customElements.define('c-spacing', SpacingElement);
 customElements.define('c-modal', ModalElement);
-customElements.define('c-msg', MsgElement);

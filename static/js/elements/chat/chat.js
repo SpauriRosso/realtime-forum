@@ -1,5 +1,5 @@
-import { state } from '../main.js';
-import { getAllUsers } from '../services/user.js';
+import { state } from '../../main.js';
+import { getAllUsers } from '../../services/user.js';
 
 export class ChatElement extends HTMLElement {
   constructor() {
