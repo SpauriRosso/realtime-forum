@@ -71,4 +71,9 @@ export class User {
     };
     this.socket.send(JSON.stringify(msg));
   }
+
+  logout() {
+    localStorage.removeItem('session_uuid');
+    window.location.href = '/';
+  }
 }

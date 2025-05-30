@@ -1,3 +1,5 @@
+import { createField } from '../services/auth.js';
+
 export class SignUpElement extends HTMLElement {
   constructor() {
     super();
@@ -20,39 +22,6 @@ export class SignUpElement extends HTMLElement {
     title.className = 'text-2xl font-semibold text-center text-gray-800';
     form.appendChild(title);
 
-    // Helper function to create input fields
-    function createField(labelText, inputType, name, id) {
-      const div = document.createElement('div');
-
-      const label = document.createElement('label');
-      label.htmlFor = id;
-      label.textContent = labelText;
-      label.className = 'block text-sm font-medium text-gray-700';
-      div.appendChild(label);
-
-      let input;
-      if (inputType === 'select') {
-        input = document.createElement('select');
-        ['Male', 'Female', 'Other'].forEach((optionText) => {
-          const option = document.createElement('option');
-          option.value = optionText;
-          option.textContent = optionText;
-          input.appendChild(option);
-        });
-      } else {
-        input = document.createElement('input');
-        input.type = inputType;
-      }
-
-      input.name = name;
-      input.id = id;
-      input.required = true;
-      input.className = 'mt-1 w-full rounded-full border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400';
-
-      div.appendChild(input);
-      return div;
-    }
-
     // Add fields to form
     form.appendChild(createField('Nickname', 'text', 'nickname', 'nickname'));
     form.appendChild(createField('Date of Birth', 'number', 'age', 'age'));
@@ -72,7 +41,16 @@ export class SignUpElement extends HTMLElement {
     // Login redirect
     const loginText = document.createElement('p');
     loginText.className = 'text-center text-sm text-gray-600';
-    loginText.innerHTML = `Already have an account? <a href="/login" class="text-blue-600 hover:underline font-medium">Log In</a>`;
+    loginText.textContent = 'Already have an account? ';
+    const loginLink = document.createElement('a');
+    loginLink.className = 'cursor-pointer select-none text-blue-600 hover:underline font-medium';
+    loginLink.textContent = 'Log In';
+    loginLink.onclick = () => {
+      this.remove();
+      const signin = document.createElement('c-signin');
+      document.querySelector('main').appendChild(signin);
+    };
+    loginText.appendChild(loginLink);
     form.appendChild(loginText);
 
     // Append form to container
@@ -83,7 +61,7 @@ export class SignUpElement extends HTMLElement {
   }
 
   handleSubmit() {
-    this.querySelector('form ').addEventListener('submit', async (e) => {
+    this.querySelector('form').addEventListener('submit', async (e) => {
       e.preventDefault();
       const data = {
         nickname: this.querySelector('#nickname').value,
