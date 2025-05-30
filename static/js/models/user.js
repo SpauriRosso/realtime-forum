@@ -10,7 +10,7 @@ export class User {
     this.email = null;
     this.isConnected = false;
     this.socket = null;
-    this.getSession();
+    if (session_uuid != null) this.getSession();
   }
 
   async getSession() {

@@ -40,7 +40,7 @@ export class NavBarElement extends HTMLElement {
     this.appendChild(notifsBtn);
 
     const loginBtn = document.createElement('c-navbutton');
-    loginBtn.onClick = () => (user.isConnected ? user.logout() : this.displaySignup()); // TODO
+    loginBtn.onClick = () => this.handleLoginBtn();
     loginBtn.img = '../../assets/navbar-connect.webp';
     this.appendChild(loginBtn);
   }
@@ -71,5 +71,10 @@ export class NavBarElement extends HTMLElement {
     const chat = document.createElement('c-createpost');
     modal.appendChild(chat);
     document.querySelector('main').appendChild(modal);
+  }
+
+  handleLoginBtn() {
+    localStorage.removeItem('session_uuid');
+    window.location.href = '/';
   }
 }

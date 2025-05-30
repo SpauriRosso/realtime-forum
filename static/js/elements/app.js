@@ -1,8 +1,25 @@
+import { state } from '../main.js';
+
 export class AppElement extends HTMLElement {
   constructor() {
     super();
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
     // create main
     const main = document.createElement('main');
+    this.appendChild(main);
+
+    if (!state.user.isConnected) {
+      const signup = document.createElement('c-signup');
+      main.appendChild(signup);
+      return;
+    }
+
     // header
     const header = document.createElement('c-header');
     main.appendChild(header);
@@ -21,7 +38,5 @@ export class AppElement extends HTMLElement {
     // navbar
     const navbar = document.createElement('c-navbar');
     main.appendChild(navbar);
-    // add main
-    this.appendChild(main);
   }
 }
