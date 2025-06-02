@@ -15,7 +15,7 @@ func CreateMsg(from, to, content string, time int64) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
-	stmt, err := tx.Prepare("INSERT INTO chat(uuid, 'from', 'to', content, time) VALUES(?, ?, ?, ?, ?)")
+	stmt, err := tx.Prepare("INSERT INTO messages(uuid, 'from', 'to', content, time) VALUES(?, ?, ?, ?, ?)")
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}

@@ -24,7 +24,7 @@ export class SignUpElement extends HTMLElement {
 
     // Add fields to form
     form.appendChild(createField('Nickname', 'text', 'nickname', 'nickname'));
-    form.appendChild(createField('Date of Birth', 'number', 'age', 'age'));
+    form.appendChild(createField('Age', 'number', 'age', 'age'));
     form.appendChild(createField('Gender', 'select', 'gender', 'gender'));
     form.appendChild(createField('First Name', 'text', 'first-name', 'first-name'));
     form.appendChild(createField('Last Name', 'text', 'last-name', 'last-name'));
