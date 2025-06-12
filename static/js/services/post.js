@@ -19,6 +19,19 @@ export async function createPost(data) {
   }
 }
 
+export async function createComment(data) {
+  const res = await fetch('/api/create-comment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+
+  const result = await res.json();
+  if (result.code !== 200) {
+    return;
+  }
+}
+
 export async function getPosts(category) {
   const res = await fetch(!category ? '/api/posts' : `/api/posts?category=${category}`, { method: 'POST' });
   const result = await res.json();
@@ -28,4 +41,13 @@ export async function getPosts(category) {
     return;
   }
   return result.data.posts;
+}
+
+export async function getComments(postUUID) {
+  const res = await fetch(`/api/comments?post=${postUUID}`, { method: 'POST' });
+  const result = await res.json();
+  if (result.code !== 200) {
+    return;
+  }
+  return result.data.comments;
 }

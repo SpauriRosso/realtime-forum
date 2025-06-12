@@ -95,3 +95,67 @@ func GetPosts(category string) ([]models.Post, error) {
 	}
 	return posts, nil
 }
+
+func GetPostByUUID(uuid string) (*models.Post, error) {
+	db := GetDB()
+	defer db.Close()
+
+	query := `
+        SELECT p.*, u.nickname, u.age, u.gender, u.firstName, u.lastName, u.email
+        FROM posts p
+        JOIN users u ON p.user = u.uuid
+        WHERE p.uuid = ?;`
+
+	row := db.QueryRow(query, uuid)
+
+	var post models.Post
+	var parent sql.NullString
+	err := row.Scan(&post.UUID, &post.User.UUID, &parent, &post.Content, &post.Category, &post.Date,
+		&post.User.Nickname, &post.User.Age, &post.User.Gender, &post.User.FirstName, &post.User.LastName, &post.User.Email)
+	if err != nil {
+		return nil, err
+	}
+	if parent.Valid {
+		post.Parent = &parent.String
+	}
+	return &post, nil
+}
+
+func GetComments(parentUUID string) ([]models.Post, error) {
+	db := GetDB()
+	defer db.Close()
+
+	query := `
+        SELECT p.*, u.nickname, u.age, u.gender, u.firstName, u.lastName, u.email
+        FROM posts p
+        JOIN users u ON p.user = u.uuid
+        WHERE p.parent = ?
+        ORDER BY p.created_at ASC;`
+
+	rows, err := db.Query(query, parentUUID)
+	if err != nil {
+		log.Printf("Error executing query: %v", err)
+		return nil, err
+	}
+	defer rows.Close()
+
+	var comments []models.Post
+	for rows.Next() {
+		var com models.Post
+		var parent sql.NullString
+		err := rows.Scan(&com.UUID, &com.User.UUID, &parent, &com.Content, &com.Category, &com.Date,
+			&com.User.Nickname, &com.User.Age, &com.User.Gender, &com.User.FirstName, &com.User.LastName, &com.User.Email)
+		if err != nil {
+			log.Printf("Error scanning row: %v", err)
+			continue
+		}
+		if parent.Valid {
+			com.Parent = &parent.String
+		}
+		comments = append(comments, com)
+	}
+	if err = rows.Err(); err != nil {
+		log.Printf("Error during row iteration: %v", err)
+	}
+	return comments, nil
+}
