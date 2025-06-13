@@ -18,7 +18,7 @@ func CreatePost(userUUID, parentUUID, content, category string) (int, error) {
 		return http.StatusInternalServerError, err
 	}
 
-	stmt, err := tx.Prepare("INSERT INTO posts(uuid, user, parent, content, category) VALUES(?, ?, ?, ?, ?)")
+	stmt, err := tx.Prepare("INSERT INTO posts(uuid, user, parent, content,category) VALUES(?, ?, ?, ?, ?)")
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
@@ -48,16 +48,16 @@ func GetPosts(category string) ([]models.Post, error) {
 	defer db.Close()
 
 	query := `
-	SELECT p.*, u.nickname, u.age, u.gender, u.firstName, u.lastName, u.email
-	FROM posts p
-	JOIN users u
-	ON p.user = u.uuid`
+        SELECT p.*, u.nickname, u.age, u.gender, u.firstName, u.lastName, u.email
+       FROM posts p
+       JOIN users u ON p.user = u.uuid
+       WHERE p.parent IS NULL`
 
 	var rows *sql.Rows
 	var err error
 
 	if category != "" {
-		query += ` WHERE p.category = ?`
+		query += ` AND p.category = ?`
 	}
 
 	query += ` ORDER BY p.created_at DESC;`

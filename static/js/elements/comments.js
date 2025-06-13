@@ -2,12 +2,8 @@ import { state } from '../main.js';
 import { getComments, createComment } from '../services/post.js';
 
 export class CommentsElement extends HTMLElement {
-  constructor() {
-    super();
-    this.postUUID = this.getAttribute('post-uuid');
-  }
-
   connectedCallback() {
+    this.postUUID = this.getAttribute('post-uuid');
     this.load();
   }
 
@@ -21,10 +17,18 @@ export class CommentsElement extends HTMLElement {
     const textarea = this.querySelector('textarea');
     const content = textarea.value.trim();
     if (!content) return;
-    const data = { user: state.user, content, post_uuid: this.postUUID };
+    const postUUID = this.postUUID || this.getAttribute('post-uuid');
+    const data = {
+      user: {
+        uuid: state.user.uuid,
+        isConnected: state.user.isConnected,
+      },
+      content,
+      post_uuid: postUUID,
+    };
     await createComment(data);
     textarea.value = '';
-    this.comments = await getComments(this.postUUID);
+    this.comments = await getComments(postUUID);
     this.render();
   }
 

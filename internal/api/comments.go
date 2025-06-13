@@ -13,7 +13,7 @@ func Comments(w http.ResponseWriter, r *http.Request) {
 	postUUID := r.URL.Query().Get("post")
 	if postUUID == "" {
 		resp.Code = http.StatusBadRequest
-		resp.Msg = "post uuid not found"
+		resp.Msg = "missing post uuid"
 		utils.SendResponse(w, resp)
 		return
 	}
